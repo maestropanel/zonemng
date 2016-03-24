@@ -29,11 +29,15 @@
             return _tm;
         }
 
-        public List<DnsZone> GetDnsZones(bool withRecords = false)
+        public List<DnsZone> GetDnsZones(bool withRecords = false, string where = "")
         {
             var _tm = new List<DnsZone>();
+            var _query = "SELECT * FROM MicrosoftDNS_Zone";
 
-            using (var query = GetProperties("SELECT * FROM MicrosoftDNS_Zone"))
+            if (!String.IsNullOrEmpty(where))
+                _query += String.Format(" WHERE {0}", where);
+
+            using (var query = GetProperties(_query))
             {
                 foreach (ManagementObject item in query)
                 {
@@ -91,6 +95,9 @@
                     r.TextRepresentation = GetValue<string>(item, "TextRepresentation");
                     r.Priority = GetValue<UInt16>(item, "Preference");
 
+                    if (recordType == "TXT")
+                        r.Data = clearQuotesTXTRecord(r.Data);
+
                     _tm.Add(r);
                 }
             }
@@ -141,6 +148,17 @@
             }
 
             return exists;
+        }
+
+        private string clearQuotesTXTRecord(string dataValue)
+        {
+            if (dataValue.StartsWith("\"") && dataValue.EndsWith("\""))
+            {
+                dataValue = dataValue.Remove(0, 1);
+                dataValue = dataValue.Remove(dataValue.Length - 1, 1);
+            }
+
+            return dataValue;
         }
     }
 }
