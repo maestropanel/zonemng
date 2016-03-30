@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MaestroPanel.MsDnsZoneManager</RootNamespace>
-    <AssemblyName>MsDnsZoneManager</AssemblyName>
+    <AssemblyName>MaestroPanel.MsDnsZoneManager</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

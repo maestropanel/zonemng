@@ -1,6 +1,7 @@
 ﻿namespace usage
 {
     using MaestroPanel.MsDnsZoneManager;
+    using System;
 
     class Program
     {
@@ -10,11 +11,12 @@
 
             foreach (var item in dns.GetAllZones())
             {
-                System.Console.WriteLine(item.Name);
+                Console.WriteLine(item.Name);
 
                 foreach (var r in item.Records)
                 {
-                    System.Console.WriteLine("\t{0}\t{1}\t{2}\t{3}", r.RecordType, r.Name, r.Data, r.Priority);                    
+                    System.Console.WriteLine("\t{0}\t{1}\t{2}\t{3}", 
+                                    r.RecordType, r.Name, r.Data, r.Priority);                    
                 }
             }            
         }
