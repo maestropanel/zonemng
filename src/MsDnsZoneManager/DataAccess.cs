@@ -7,7 +7,7 @@
     internal class DataAccess
     {
         public List<DnsZoneRecord> GetDnsZoneRecords(string zoneName)
-        {
+        {            
             var _tm = new List<DnsZoneRecord>();
 
             var a = GetDnsRecords(zoneName, "A", "OwnerName", "IPAddress");
@@ -35,8 +35,8 @@
             var _query = "SELECT * FROM MicrosoftDNS_Zone";
 
             if (!String.IsNullOrEmpty(where))
-                _query += String.Format(" WHERE {0}", where);
-
+                _query += String.Format(" WHERE ContainerName = '{0}'", where);
+            
             using (var query = GetProperties(_query))
             {
                 foreach (ManagementObject item in query)
@@ -152,8 +152,11 @@
 
         private string clearQuotesTXTRecord(string dataValue)
         {
+            if (String.IsNullOrEmpty(dataValue))
+                return dataValue;
+
             if (dataValue.StartsWith("\"") && dataValue.EndsWith("\""))
-            {
+            {                
                 dataValue = dataValue.Remove(0, 1);
                 dataValue = dataValue.Remove(dataValue.Length - 1, 1);
             }
