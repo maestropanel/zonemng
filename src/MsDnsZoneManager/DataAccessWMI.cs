@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Management;
 
-    internal class DataAccess
+    internal class DataAccessWMI : DataProvider
     {
         public List<DnsZoneRecord> GetDnsZoneRecords(string zoneName)
         {            
@@ -164,4 +164,7 @@
             return dataValue;
         }
     }
+
+
+
 }

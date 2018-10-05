@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="DataAccessFile.cs" />
+    <Compile Include="DataAccessWMI.cs" />
+    <Compile Include="DataProvider.cs" />
     <Compile Include="DnsZone.cs" />
+    <Compile Include="MsDnsZoneParser.cs" />
     <Compile Include="ZoneManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

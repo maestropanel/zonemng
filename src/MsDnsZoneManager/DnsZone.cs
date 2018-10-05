@@ -35,4 +35,15 @@
         public UInt16 Priority { get; set; }
         public string TextRepresentation { get; set; }
     }
+
+    internal enum RecordTypes
+    {
+        None,
+        A,
+        AAAA,
+        CNAME,
+        MX,
+        NS,
+        TXT
+    }
 }

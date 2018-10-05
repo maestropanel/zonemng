@@ -7,7 +7,7 @@
     {
         static void Main(string[] args)
         {
-            var dns = new ZoneManage();
+            var dns = new ZoneManage("file");
 
             foreach (var item in dns.GetAllZones())
             {

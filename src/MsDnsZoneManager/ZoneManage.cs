@@ -4,21 +4,44 @@
     
     public class ZoneManage
     {
-        private DataAccess _db;
+        private const string ProviderWMI = "wmi";
+        private const string ProviderFILE = "file";
+                
+        private DataProvider provider;
 
-        public ZoneManage()
+        public ZoneManage(string provider = "wmi")
         {
-            _db = new DataAccess();            
+            this.provider = selectProvider(provider);
         }
 
         public List<DnsZone> GetAllZones(bool withRecords = true)
         {
-            return _db.GetDnsZones(withRecords);
+            return provider.GetDnsZones(withRecords);
         }
 
         public List<DnsZoneRecord> GetZoneRecords(string zoneName)
         {
-            return _db.GetDnsZoneRecords(zoneName);
+            return provider.GetDnsZoneRecords(zoneName);
+        }
+
+        private DataProvider selectProvider(string prv)
+        {
+            DataProvider p;
+
+            switch (prv)
+            {
+                case ProviderWMI:
+                    p = new DataAccessWMI();
+                    break;
+                case ProviderFILE:
+                    p = new DataAccessFile();
+                    break;
+                default:
+                    p = new DataAccessWMI();
+                    break;
+            }
+
+            return p;
         }
     }
 }
