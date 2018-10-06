@@ -9,9 +9,9 @@
                 
         private DataProvider provider;
 
-        public ZoneManage(string provider = "wmi")
+        public ZoneManage(string providername = "wmi")
         {
-            this.provider = selectProvider(provider);
+            this.provider = selectProvider(providername);
         }
 
         public List<DnsZone> GetAllZones(bool withRecords = true)
@@ -26,22 +26,14 @@
 
         private DataProvider selectProvider(string prv)
         {
-            DataProvider p;
+            if (prv == ProviderFILE)
+                return new DataAccessFile();   
 
-            switch (prv)
-            {
-                case ProviderWMI:
-                    p = new DataAccessWMI();
-                    break;
-                case ProviderFILE:
-                    p = new DataAccessFile();
-                    break;
-                default:
-                    p = new DataAccessWMI();
-                    break;
-            }
+            if (prv == ProviderWMI)            
+                return new DataAccessWMI();
 
-            return p;
+         
+            return null;
         }
     }
 }
